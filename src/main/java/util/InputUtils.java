@@ -6,6 +6,10 @@ import java.io.InputStreamReader;
 
 public class InputUtils {
 
+    private InputUtils() {
+        throw new AssertionError("An util class");
+    }
+
     public static String getLine() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         try {
