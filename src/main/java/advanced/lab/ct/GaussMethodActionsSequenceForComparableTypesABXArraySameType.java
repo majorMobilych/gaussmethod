@@ -6,8 +6,7 @@ import advanced.common.GaussMethod;
 import java.util.Comparator;
 
 public class GaussMethodActionsSequenceForComparableTypesABXArraySameType<CT> extends
-        AbstractGaussMethodActionsSequenceForComparableTypes<CT, CT>
-        implements GaussMethod<CT[], CT, CT> {
+        AbstractGaussMethodActionsSequenceForComparableTypes<CT, CT> implements GaussMethod<CT[], CT, CT> {
 
     private final Comparator<CT> ctComparator;
     private final ArithmeticOperationsDefinition<CT, CT, CT> arithmeticCTCT;

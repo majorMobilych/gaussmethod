@@ -1,33 +1,31 @@
 package simple;
 
-import lombok.AllArgsConstructor;
+import util.MatrixUtils;
 
-@AllArgsConstructor
 public final class GaussMethodDoubleImpl {
 
     private double[][] aMatrix;
+
     private double[] bVector;
 
-    private void exceptionsChecking() {
-        if (aMatrix.length != bVector.length) {
-            throw new IllegalArgumentException("A matrix and B vector has incompatible types");
-        }
-        if (aMatrix.length != aMatrix[0].length) {
-            throw new IllegalArgumentException("A matrix should be of a square");
-        }
+    public GaussMethodDoubleImpl(double[][] aMatrix, double[] bVector) {
+        this.aMatrix = aMatrix.clone();
+        this.bVector = bVector.clone();
     }
 
     public double[] solve() {
-        exceptionsChecking();
+        MatrixUtils.exceptionsChecking(aMatrix, bVector);
 
         for (int i = 0; i < bVector.length; i++) {
             swapRows(i, findNumberOfRowWithMaxFirstElement(i));
             divideAllRowElementsByNumber(i, i, aMatrix[i][i]);
             setZeroesUnder(i, i);
         }
+
         for (int i = bVector.length - 1; i >= 0; i--) {
             setZerosUp(i, i);
         }
+
         return bVector;
     }
 
@@ -37,6 +35,7 @@ public final class GaussMethodDoubleImpl {
         }
 
         int maxIndex = colNum;
+
         for (int i = colNum + 1; i < aMatrix.length; i++) {
             if (Math.abs(aMatrix[i][colNum]) > Math.abs(aMatrix[maxIndex][colNum])) {
                 maxIndex = i;
@@ -49,33 +48,38 @@ public final class GaussMethodDoubleImpl {
         for (int i = colNum; i < aMatrix.length; i++) {
             aMatrix[rowNum][i] = aMatrix[rowNum][i] / number;
         }
-        //работаем с bVector
+
         bVector[rowNum] = bVector[rowNum] / number;
     }
 
     private void setZeroesUnder(int rowNum, int colNum) {
         final int aMatrixLength = aMatrix.length;
+
         if (rowNum == aMatrixLength) {
             return;
         }
 
         for (int i = rowNum + 1; i < aMatrixLength; i++) {
             double multiplier = aMatrix[i][colNum];
+
             for (int j = colNum; j < aMatrixLength; j++) {
                 aMatrix[i][j] = aMatrix[i][j] - multiplier * aMatrix[rowNum][j];
             }
-            //работаем с bVector
+
             bVector[i] = bVector[i] - bVector[rowNum] * multiplier;
         }
     }
 
     private void setZerosUp(int rowNum, int colNum) {
         int matrixLength = aMatrix.length;
+
         for (int i = rowNum; i > 0; i--) {
             double alpha = aMatrix[i - 1][colNum];
+
             for (int j = matrixLength - 1; j > colNum - 1; j--) {
                 aMatrix[i - 1][j] = aMatrix[i - 1][j] - aMatrix[rowNum][j] * alpha;
             }
+
             bVector[i - 1] = bVector[i - 1] - bVector[rowNum] * alpha;
         }
     }

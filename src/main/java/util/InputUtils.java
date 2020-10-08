@@ -4,15 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class InputUtils {
+public final class InputUtils {
 
     private InputUtils() {
-        throw new AssertionError("An util class");
+        throw new AssertionError("InputUtils.class is an util class");
     }
 
     public static String getLine() {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             return bufferedReader.readLine();
         } catch (IOException e) {
             e.printStackTrace();

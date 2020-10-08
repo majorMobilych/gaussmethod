@@ -1,29 +1,16 @@
-import simple.GaussMethodDoubleImpl;
-import util.MatrixUtils;
+import simple.SimpleIterationsDoublesImpl;
 
 public class Starter {
     public static void main(String[] args) {
         double[][] aMatrix = new double[][]{
-                {
-                        2.0, 5.0, 7.0, 11.0
-                },
-                {
-                        99.0, 22.0, 75.0, 66.0
-                },
-                {
-                        223.0, 228.0, 12.0, 9.0
-                },
-                {
-                        4.0, 3.0, 2.0, 1.0
-                }
+                {0.05, -0.06, -0.12, 0.14},
+                {0.04, -0.12, 0.68, 0.11},
+                {0.34, 0.08, -0.06, 0.44},
+                {0.11, 0.12, -0.03, -0.8}
         };
-        double[] xVector = new double[]{1.0, 1.0, 1.0, 1.0};
-        double[] bVector;
-        bVector = MatrixUtils.multiplyByMatrix(aMatrix, xVector);
-        GaussMethodDoubleImpl solver = new GaussMethodDoubleImpl(aMatrix, bVector);
-        double[] doubles = MatrixUtils.subtractVectors(solver.solve(), xVector);
-        for (double aDouble : doubles) {
-            System.out.println(aDouble);
-        }
+        double[] bVector = new double[]{1.0, 1.0, 1.0, 1.0};
+        double epsilon = 0.01;
+        SimpleIterationsDoublesImpl simpleIterationsDoubles = new SimpleIterationsDoublesImpl(aMatrix, bVector, epsilon);
+        simpleIterationsDoubles.solve();
     }
 }
